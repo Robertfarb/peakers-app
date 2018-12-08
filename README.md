@@ -1,24 +1,18 @@
-# README
+# Fullstack Application for Peakers.AI
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a fullstack application created for Peakers.AI.
 
-Things you may want to cover:
+This README covers
 
-* Ruby version
+- [Features](features)
+- [Technologies](Technologies)
+- [Future Features](Future&%20Features)
 
-* System dependencies
+## Features
 
-* Configuration
 
-* Database creation
+## Technologies
+This app was built using Rails and PostgreSQL for the backend, and React.js on the frontend. Rails was chosen for the backend becuase of it's powerful features out of the box, and react/redux on the frontend to get more experience working with a framework that is intednded for high scalability.
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Ideas for future features
