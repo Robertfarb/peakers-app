@@ -27,7 +27,8 @@ This README covers
 ## Features
 This application integrates the Google Maps geocoder API to geocode addresses into lat/lng
 coordinates, and drops a pin on a google maps component where the user indicates. The app
-also reverse geocodes lat lng into address and drops a pin on the map.
+also reverse geocodes lat lng into address and drops a pin on the map. Finally, I use the Haversine,
+formula to return the distance (as the crow flies) between two pairs of Lat/Longs.
 
 
 ## Technologies
@@ -35,3 +36,5 @@ This app was built using Rails and PostgreSQL for the backend, and React.js on t
 
 
 ## Ideas for future features
+  - Show the distance between to lat/lng coords on a map and drop the pins and optional routes drawn on the map
+  - Display the time traveled via walking, jogging, running, biking between two addresses.
