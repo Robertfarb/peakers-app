@@ -11,7 +11,8 @@ const App = () => (
     <Switch>
       <Route path="/map" component={Map} />
       <Route exact path="/" component={Map} />
-      <Route exact path="/geocode" component={GeoForm} />
+      <Route exact path="/geocode" component={Map} />
+      <Route exact path="/reverse-geocode" component={Map} />
     </Switch>
   </div>
 );

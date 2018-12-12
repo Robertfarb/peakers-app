@@ -8,8 +8,8 @@ const Navbar = () => (
     </div>
     <div className="right">
       <Link className="distance-link" to="/distance">Get Distance</Link>
-      <Link className="distance-link" to="/geocode">Geocode Lat/Long</Link>
-      <Link className="map-link" to="/map">Map</Link>
+      <Link className="distance-link" to="/geocode">Geocode Address</Link>
+      <Link className="map-link" to="/reverse-geocode">Reverse Geocode</Link>
     </div>
   </nav>
 );

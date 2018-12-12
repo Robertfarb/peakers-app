@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { withRouter } from "react-router-dom";
 import secrets from '../../util/api_key';
 import GeoForm from '../geocode_form/geocode_form';
+import RevGeoForm from '../geocode_form/reverse_geo_form';
 
 
 class Map extends React.Component {
@@ -47,9 +48,10 @@ class Map extends React.Component {
             lng: results[0].geometry.location.lng()
           })
         } else {
-          console.error(
-            `Geocode was not successful for the following reason: ${status}`
-          );
+          resolve({
+            lat: "Sorry, No Results Found",
+            lng: "Sorry, No results Found"
+          });
         }
       });
     });
@@ -66,7 +68,11 @@ class Map extends React.Component {
           ref={map => (this.mapNode = map)}
           className="google-map"
         />
-        <GeoForm codeAddress={this.codeAddress}/>
+        {
+          this.props.match.path === "/geocode" ? 
+          <GeoForm codeAddress={this.codeAddress} /> :
+          (this.props.match.path === "/reverse-geocode" ? <RevGeoForm codeAddress={this.codeAddress} /> : null)
+        }
       </div>
     );
   }
