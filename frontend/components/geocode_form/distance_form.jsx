@@ -60,7 +60,7 @@ class DistanceForm extends React.Component {
 
     return (
       <div className="distance-form-container">
-        <form onSubmit={this.handleSubmit}>
+        <form className="distance-form" onSubmit={this.handleSubmit}>
           <div className="distance-form">
             <label className="form-label">
               Latitude 1:
@@ -82,6 +82,7 @@ class DistanceForm extends React.Component {
                 className="lng-input"
               />
             </label>
+            <hr></hr>
             <label className="form-label">
               Latitude 2:
               <input
