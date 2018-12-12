@@ -1,5 +1,6 @@
 import React from 'react';
 import Map from './map/map';
+import GeoForm from './geocode_form/geocode_form';
 import NavBar from './nav/nav';
 import { Route, Switch } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ const App = () => (
     <Switch>
       <Route path="/map" component={Map} />
       <Route exact path="/" component={Map} />
+      <Route exact path="/geocode" component={GeoForm} />
     </Switch>
   </div>
 );

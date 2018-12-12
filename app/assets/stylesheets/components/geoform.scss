@@ -1,0 +1,45 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.submit-button {
+  background-color: #58b5ff;
+  border-radius: 54px;
+  color: white;
+  text-transform: capitalize;
+  font-family: CentraNo1-Bold,Helvetica Neue,Helvetica,Arial,sans-serif;
+  border: none;
+  text-align: center;
+  transition: all .4s ease;
+  height: 25px;
+  width: 17%;
+  font-weight: 600;
+}
+
+input {
+  margin: 10px;
+}
+
+input[type="submit"]:disabled {
+    background: #dddddd;
+}
+
+form {
+  display: flex;
+  margin-top: 10px;
+}
+
+.geocode-form-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.lat-lng {
+  display: flex;
+  flex-direction: column;
+}

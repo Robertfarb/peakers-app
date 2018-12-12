@@ -1,23 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import MarkerManager from '../../util/marker_manager';
 import { withRouter } from "react-router-dom";
+import secrets from '../../util/api_key';
+import GeoForm from '../geocode_form/geocode_form';
 
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.handleMarkerClick = this.handleMarkerClick.bind(this);
-    // this.registerListeners = this.registerListeners.bind(this);
-    // this.centerMapOnSearch = this.centerMapOnSearch.bind(this);
+    this.state = {
+      address: "",
+      lat: "",
+      lng: "",
+      error: false
+    };
+
     this.geoCoder = new google.maps.Geocoder();
-    // this.getCenter = this.getCenter.bind(this);
+    this.codeAddress = this.codeAddress.bind(this);
   }
 
-
   componentDidMount() {
-    let geoLocation = this.props.geoLocation;
     let mapCenter = { lat: 37.865101, lng: -119.538329 };
 
     const mapOptions = {
@@ -26,46 +29,46 @@ class Map extends React.Component {
     };
 
     this.map = new google.maps.Map(this.mapNode, mapOptions);
-    // this.registerListeners();
   }
 
-  // registerListeners() {
-  //   google.maps.event.addListener(this.map, 'idle', () => {
-  //     const { north, south, east, west } = this.map.getBounds().toJSON();
-  //     const bounds = {
-  //       northEast: { lat: north, long: east },
-  //       southWest: { lat: south, long: west }
-  //     };
-  //     this.props.updateFilter('location', bounds);
-  //   });
-  // }
-
-  // getCenter(callBack) {
-  //   const geolocation = this.props.geoLocation;
-  //   let centerCoords;
-  //   this.geoCoder.geocode({ 'address': geolocation }, function (results, status) {
-  //     if (status === "OK") {
-  //       if (results[0]) {
-  //         let lat = results[0].geometry.location.lat();
-  //         let lng = results[0].geometry.location.lng();
-  //         centerCoords = { lat, lng }
-  //         callBack(centerCoords);
-  //       } else {
-  //         centerCoords = { lat: 37.865101, lng: -119.538329 };
-  //         callBack(centerCoords);
-  //       }
-  //     }
-  //   });
-  // }
-
+  codeAddress(address) {
+    return new Promise((resolve, reject) => {
+      let map = this.map;
+      let geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: address }, function (results, status) {
+        if (status === "OK") {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+          });
+          resolve({
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          })
+        } else {
+          console.error(
+            `Geocode was not successful for the following reason: ${status}`
+          );
+        }
+      });
+    });
+  }
 
   render() {
+    const { address } = this.state;
+    const enabled = address.length > 0;
+
     return (
       <div className="map-wrapper">
-        <div id='map-container' ref={map => this.mapNode = map} className='google-map'>
-        </div>
+        <div
+          id="map-container"
+          ref={map => (this.mapNode = map)}
+          className="google-map"
+        />
+        <GeoForm codeAddress={this.codeAddress}/>
       </div>
-    )
+    );
   }
 }
 
