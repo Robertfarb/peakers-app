@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import secrets from '../../util/api_key';
-// import { codeAddress } from '../../util/api_util';
+
 
 class GeoForm extends React.Component {
   constructor(props) {

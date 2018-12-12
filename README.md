@@ -13,17 +13,21 @@ This README covers
 1) Unzip the compressed folder
 2) run `rails db:setup`
 3) Configure Google Maps API key:
-    - run `EDITOR=vim bin/rails credentials:edit`
-    - insert:
-      ```yml
-      google_maps:
-        api_key: YOUR_API_KEY_HERE
-      ```
+  - Create a file called api_key.js in `frontend/util`
+  - Add this to api_key.js:
+    ```js
+    module.exports = {
+      API_KEY: `YOUR_API_KEY_HERE`
+    };
+    ```
     - Now the rails app is setup to use your API_KEY everywhere necessary
 3) run `npm install`
 4) run `bundle install`
 
 ## Features
+This application integrates the Google Maps geocoder API to geocode addresses into lat/lng
+coordinates, and drops a pin on a google maps component where the user indicates. The app
+also reverse geocodes lat lng into address and drops a pin on the map.
 
 
 ## Technologies

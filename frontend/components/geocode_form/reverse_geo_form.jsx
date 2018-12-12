@@ -22,9 +22,9 @@ class ReverseGeoForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.codeAddress(this.state.address).then(res => {
+    this.props.reverseGeoCode(this.state).then(res => {
       this.setState({
-        lat: `Latitude: ${res.lat}`, lng: `Latitude: ${res.lng}`
+        address: `Address: ${res.address}`, lat: `Latitude: ${res.lat}`, lng: `Latitude: ${res.lng}`
       });
       console.log(this.state);
     });
@@ -49,8 +49,7 @@ class ReverseGeoForm extends React.Component {
         <input type="submit" value="Geocode Input" className="submit-button" disabled={!enabled} />
       </form>
       <div className="lat-lng">
-        <span>{this.state.lat}</span>
-        <span>{this.state.lng}</span>
+        <span>{this.state.address}</span>
       </div>
     </div>;
   }

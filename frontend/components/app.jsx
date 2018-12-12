@@ -1,8 +1,8 @@
 import React from 'react';
 import Map from './map/map';
-import GeoForm from './geocode_form/geocode_form';
 import NavBar from './nav/nav';
 import { Route, Switch } from 'react-router-dom';
+import DistanceForm from './geocode_form/distance_form';
 
 const App = () => (
   <div>
@@ -13,6 +13,7 @@ const App = () => (
       <Route exact path="/" component={Map} />
       <Route exact path="/geocode" component={Map} />
       <Route exact path="/reverse-geocode" component={Map} />
+      <Route exact path="/distance" component={DistanceForm} />
     </Switch>
   </div>
 );

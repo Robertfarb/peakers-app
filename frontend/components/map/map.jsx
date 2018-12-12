@@ -19,6 +19,7 @@ class Map extends React.Component {
 
     this.geoCoder = new google.maps.Geocoder();
     this.codeAddress = this.codeAddress.bind(this);
+    this.reverseGeoCode = this.reverseGeoCode.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +58,40 @@ class Map extends React.Component {
     });
   }
 
+  reverseGeoCode(latlng) {
+    console.log(latlng)
+    return new Promise((resolve, reject) => {
+      let map = this.map;
+      let geocoder = new google.maps.Geocoder();
+      let latLng = {lat: parseInt(latlng.lat), lng: parseInt(latlng.lng)}
+      geocoder.geocode({ "location": latLng }, function(results, status) {
+        if (status === "OK") {
+          console.log(results[0].formatted_address);
+          if (results[0]) {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+            resolve({
+              address: results[0].formatted_address,
+              lat: results[0].geometry.location.lat(),
+              lng: results[0].geometry.location.lng()
+            });
+          } else {
+            resolve("Sorry, No results Found!");
+          }
+        } else {
+          console.log(status);
+          resolve({
+            lat: "Sorry, No Results Found",
+            lng: "Sorry, No results Found"
+          });
+        }
+      });
+    });
+  }
+
   render() {
     const { address } = this.state;
     const enabled = address.length > 0;
@@ -68,10 +103,13 @@ class Map extends React.Component {
           ref={map => (this.mapNode = map)}
           className="google-map"
         />
+
+        {/* Ternary operator That determines which component to 
+         render dependent on the path in the URL */}
         {
           this.props.match.path === "/geocode" ? 
           <GeoForm codeAddress={this.codeAddress} /> :
-          (this.props.match.path === "/reverse-geocode" ? <RevGeoForm codeAddress={this.codeAddress} /> : null)
+          (this.props.match.path === "/reverse-geocode" ? <RevGeoForm reverseGeoCode={this.reverseGeoCode} /> : null)
         }
       </div>
     );
