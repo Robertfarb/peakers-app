@@ -23,12 +23,13 @@ class GeoForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.codeAddress(this.state.address).then(res => {
-      this.setState({
-        lat: `Latitude: ${res.lat}`, lng: `Latitude: ${res.lng}`
-      });
-      console.log(this.state);
-    });
+    this.props.codeAddress(this.state.address).then(res => console.log(res))
+    // this.props.codeAddress(this.state.address).then(res => {
+    //   this.setState({
+    //     lat: `Latitude: ${res.lat}`, lng: `Latitude: ${res.lng}`
+    //   });
+    //   console.log(this.state);
+    // });
   };
 
   render() {

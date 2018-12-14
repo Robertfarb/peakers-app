@@ -1,3 +1,1 @@
-json.set! "geocode" do
-  json.status "This works"
-end
+json.google_response JSON.parse(@geo_response)

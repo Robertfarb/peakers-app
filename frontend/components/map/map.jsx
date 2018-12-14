@@ -35,26 +35,26 @@ class Map extends React.Component {
 
   codeAddress(address) {
     return new Promise((resolve, reject) => {
-      let map = this.map;
-      let geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ address: address }, function (results, status) {
-        if (status === "OK") {
-          map.setCenter(results[0].geometry.location);
-          var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-          });
+      fetch(`http://localhost:3000/geocode?address=${address}`)
+        .then(res => res.json())
+        .then(result => {
+          let map = this.map;
+          let results = result.google_response.results;
+          if (result.google_response.status === "OK") {
+            map.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+              });
+          }
           resolve({
-            lat: results[0].geometry.location.lat(),
-            lng: results[0].geometry.location.lng()
-          })
-        } else {
-          resolve({
-            lat: "Sorry, No Results Found",
-            lng: "Sorry, No results Found"
+            lat: result.google_response.results[0].geometry.location.lat,
+            lng: result.google_response.results[0].geometry.location.lng
+          });     
+        },
+          error => {
+            this.setState({ isLoaded: true, error });
           });
-        }
-      });
     });
   }
 

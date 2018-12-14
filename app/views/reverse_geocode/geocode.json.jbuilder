@@ -1,3 +1,3 @@
 json.set! "reverse_geocode" do
-  json.status "This works"
+  json.google_response JSON.parse(@geo_results)
 end
