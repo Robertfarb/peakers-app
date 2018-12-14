@@ -5,8 +5,8 @@ class GeocodeController < ApplicationController
 
   private
   def geocode_address(address)
-    if address.is_a?(Integer) || 
-      render json: {"error": "Please enter a valid input", 
+    if address.is_a?(Integer)
+      render json: {"error": "Please enter a valid address", 
                     "status": 422, 
                     "google_response": {"status": "BAD_REQUEST"}
                     }

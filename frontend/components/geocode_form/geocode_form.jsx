@@ -26,7 +26,6 @@ class GeoForm extends React.Component {
       this.setState({
         lat: `Latitude: ${res.lat}`, lng: `Latitude: ${res.lng}`
       });
-      console.log(this.state);
     });
   };
 

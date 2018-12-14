@@ -37,6 +37,7 @@ class Map extends React.Component {
       fetch(`http://localhost:3000/geocode?address=${address}`)
         .then(res => res.json())
         .then(result => {
+          console.log(result)
           let map = this.map;
           let results = result.google_response.results;
           if (result.google_response.status === "OK") {
@@ -45,11 +46,17 @@ class Map extends React.Component {
                 map: map,
                 position: results[0].geometry.location
               });
+            resolve({
+              lat: result.google_response.results[0].geometry.location.lat,
+              lng: result.google_response.results[0].geometry.location.lng
+            });
+          } else {
+            resolve({
+              address: "Please enter a valid longitude & Latitude",
+              lat: "Please enter a valid Address",
+              lng: "Please Enter a Valid Address"
+            });
           }
-          resolve({
-            lat: result.google_response.results[0].geometry.location.lat,
-            lng: result.google_response.results[0].geometry.location.lng
-          });     
         },
           error => {
             this.setState({ isLoaded: true, error });
@@ -89,9 +96,6 @@ class Map extends React.Component {
               });
             }
           })
-          // .catch(err => 
-          //   reject(err, "Please enter a valid longitude and latitude")
-          // )
       });
   }
     
