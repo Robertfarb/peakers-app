@@ -59,38 +59,39 @@ class Map extends React.Component {
   }
 
   reverseGeoCode(latlng) {
-    console.log(latlng)
     return new Promise((resolve, reject) => {
-      let map = this.map;
-      let geocoder = new google.maps.Geocoder();
-      let latLng = {lat: parseInt(latlng.lat), lng: parseInt(latlng.lng)}
-      geocoder.geocode({ "location": latLng }, function(results, status) {
-        if (status === "OK") {
-          console.log(results[0].formatted_address);
-          if (results[0]) {
-            map.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location
-            });
-            resolve({
-              address: results[0].formatted_address,
-              lat: results[0].geometry.location.lat(),
-              lng: results[0].geometry.location.lng()
-            });
-          } else {
-            resolve("Sorry, No results Found!");
-          }
-        } else {
-          console.log(status);
-          resolve({
-            lat: "Sorry, No Results Found",
-            lng: "Sorry, No results Found"
+      fetch(`http://localhost:3000/reverse_geocode?lat=${latlng.lat}&lon=${latlng.lng}`)
+        .then(res => res.json())
+        .then(result => {
+          let map = this.map;
+          let results = result.google_response.results;
+            if (result.google_response.status === "OK") {
+              console.log(results);
+              if (results[0]) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location
+                });
+                resolve({
+                  address: results[0].formatted_address,
+                  lat: results[0].geometry.location.lat,
+                  lng: results[0].geometry.location.lng
+                });
+              } else {
+                resolve("Sorry, No results Found!");
+              }
+            } else {
+              console.log(status);
+              resolve({
+                lat: "Sorry, No Results Found",
+                lng: "Sorry, No results Found"
+              });
+            }
           });
-        }
       });
-    });
   }
+    
 
   render() {
     const { address } = this.state;

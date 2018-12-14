@@ -24,7 +24,7 @@ class ReverseGeoForm extends React.Component {
     e.preventDefault();
     this.props.reverseGeoCode(this.state).then(res => {
       this.setState({
-        address: `Address: ${res.address}`, lat: `Latitude: ${res.lat}`, lng: `Latitude: ${res.lng}`
+        address: `Address: ${res.address}`, lat: `${res.lat}`, lng: `${res.lng}`
       });
       console.log(this.state);
     });
