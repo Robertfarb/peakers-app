@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { withRouter } from "react-router-dom";
-import secrets from '../../util/api_key';
 import GeoForm from '../geocode_form/geocode_form';
 import RevGeoForm from '../geocode_form/reverse_geo_form';
 

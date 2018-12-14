@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import secrets from '../../util/api_key';
 
 class DistanceForm extends React.Component {
   constructor(props) {

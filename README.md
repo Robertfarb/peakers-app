@@ -13,14 +13,13 @@ This README covers
 1) Unzip the compressed folder
 2) run `rails db:setup`
 3) Configure Google Maps API key:
-  - Create a file called api_key.js in `frontend/util`
-  - Add this to api_key.js:
-    ```js
-    module.exports = {
-      API_KEY: `YOUR_API_KEY_HERE`
-    };
+  - run `EDITOR=VIM bin/rails credentials:edit`
+  - insert:
+    ```yml
+    google_maps:
+      api_key: YOUR_API_KEY_HERE
     ```
-    - Now the rails app is setup to use your API_KEY everywhere necessary
+  - Now the rails app is setup to use your API_KEY everywhere necessary
 3) run `npm install`
 4) run `bundle install`
 
