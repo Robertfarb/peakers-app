@@ -63,10 +63,11 @@ class Map extends React.Component {
       fetch(`http://localhost:3000/reverse_geocode?lat=${latlng.lat}&lon=${latlng.lng}`)
         .then(res => res.json())
         .then(result => {
+          console.log(result);
+          debugger;
           let map = this.map;
           let results = result.google_response.results;
             if (result.google_response.status === "OK") {
-              console.log(results);
               if (results[0]) {
                 map.setCenter(results[0].geometry.location);
                 var marker = new google.maps.Marker({
@@ -82,21 +83,21 @@ class Map extends React.Component {
                 resolve("Sorry, No results Found!");
               }
             } else {
-              console.log(status);
               resolve({
-                lat: "Sorry, No Results Found",
-                lng: "Sorry, No results Found"
+                address: "Please enter a valid longitude & Latitude",
+                lat: "-----",
+                lng: "-----"
               });
             }
-          });
+          })
+          // .catch(err => 
+          //   reject(err, "Please enter a valid longitude and latitude")
+          // )
       });
   }
     
 
   render() {
-    const { address } = this.state;
-    const enabled = address.length > 0;
-
     return (
       <div className="map-wrapper">
         <div

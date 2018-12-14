@@ -11,7 +11,8 @@ class GeoDistanceController < ApplicationController
   def calculate_distance(lat1, lon1, lat2, lon2)
     delta_lon = deg_to_rad(lon2) - deg_to_rad(lon1)
     distance = Math.cos(Math.asin(deg_to_rad(lat1)) * Math.asin(deg_to_rad(lat2)) + 
-               Math.cos(deg_to_rad(lat1)) * Math.cos(deg_to_rad(lat2)) * Math.cos(delta_lon)) * 3963.189
+               Math.cos(deg_to_rad(lat1)) * Math.cos(deg_to_rad(lat2)) * 
+               Math.cos(delta_lon)) * 3963.189
     return distance
   end
 
