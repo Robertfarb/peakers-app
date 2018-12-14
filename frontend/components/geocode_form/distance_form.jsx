@@ -31,32 +31,27 @@ class DistanceForm extends React.Component {
   }
 
   getDistance(lat1, lon1, lat2, lon2) {
-    var R = 3963.189; // meters
-
-    // Find the deltas
-    let delta_lon = this.degToRad(lon2) - this.degToRad(lon1);
-
-    // Find the Great Circle distance
-    let distance = Math.acos(Math.sin(this.degToRad(lat1)) * Math.sin(this.degToRad(lat2)) + 
-               Math.cos(this.degToRad(lat1)) * Math.cos(this.degToRad(lat2)) * Math.cos(delta_lon)) * 3963.189;
-
-    this.setState({ distance: distance });
-    console.log(distance);
-    return distance;
+    fetch(`http://localhost:3000/geo_distance?lat1=${lat1}&lon1=${lon1}&lat2=${lat2}&lon2=${lon2}`)
+      .then(res => res.json())
+      .then(result => {
+        console.log(result.geo_distance.distance);
+        this.setState({ distance: `Distance: ${result.geo_distance.distance}` });
+        return result.geo_distance.distance
+      });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    let lat1 = parseInt(this.state.lat1);
-    let lng1 = parseInt(this.state.lng1);
-    let lat2 = parseInt(this.state.lat2);
-    let lng2 = parseInt(this.state.lng2);
+    let lat1 = parseFloat(this.state.lat1);
+    let lng1 = parseFloat(this.state.lng1);
+    let lat2 = parseFloat(this.state.lat2);
+    let lng2 = parseFloat(this.state.lng2);
     this.getDistance(lat1, lng1, lat2, lng2);
   }
 
   render() {
     const { lat1, lng1, lat2, lng2 } = this.state;
-    const enabled = lat1.length > 0 && lng2.length > 0 && lat2.length > 0 && lng2.length > 0;
+    const enabled = lat1.length > 0 && lng1.length > 0 && lat2.length > 0 && lng2.length > 0;
 
     return (
       <div className="distance-form-container">
