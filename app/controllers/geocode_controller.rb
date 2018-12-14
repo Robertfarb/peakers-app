@@ -10,6 +10,7 @@ class GeocodeController < ApplicationController
                     "status": 422, 
                     "google_response": {"status": "BAD_REQUEST"}
                     }
+                  
     else
       response = RestClient::Request.execute(
         method: :get,

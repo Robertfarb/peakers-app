@@ -4,10 +4,15 @@ class GeocodeControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get geocode" do
+  test "get request should invoke GeocodeController #geocode method" do
     get "/geocode"
- 
     assert_equal "geocode", @controller.action_name
-    assert_equal "US-ASCII", @request.media_type
+  end
+
+  test "should catch incorrect params" do
+    get "/geocode?address=314342234234"
+    response = JSON.parse(@response.body)
+    assert_equal("ZERO_RESULTS", response["google_response"]["status"])
+    assert_response :success
   end
 end
