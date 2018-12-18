@@ -33,7 +33,6 @@ class DistanceForm extends React.Component {
     fetch(`http://localhost:3000/geo_distance?lat1=${lat1}&lon1=${lon1}&lat2=${lat2}&lon2=${lon2}`)
       .then(res => res.json())
       .then(result => {
-        console.log(result.geo_distance.distance);
         this.setState({ distance: `Distance: ${result.geo_distance.distance}` });
         return result.geo_distance.distance
       });
